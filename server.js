@@ -16,7 +16,7 @@ http
         throw err;
       }
 
-      response.writeHea(200, { "Content-Type": "text/html" });
+      response.writeHead(200, { "Content-Type": "text/html" });
       response.write(data);
       response.end();
     });
