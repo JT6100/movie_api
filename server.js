@@ -8,7 +8,18 @@ http
     response.end("Hello Node!\n");
     let addr = request.url,
       q = url.parse(addr, true);
-    filepath = "";
+    if (q.pathname.includes("documentation")) {
+      filepath = "index.html";
+    }
+    fs.readFile(filepath, (err, datta) => {
+      if (err) {
+        throw err;
+      }
+
+      response.writeHea(200, { "Content-Type": "text/html" });
+      response.write(data);
+      response.end();
+    });
   })
   .listen(8080);
 
