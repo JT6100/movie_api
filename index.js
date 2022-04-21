@@ -88,8 +88,18 @@ let movies = [
   },
 ];
 
+//gets list of data about moives
 app.get("/movies", (req, res) => {
-  res.json(topmovies);
+  res.json(movies);
+});
+
+//gets data about a single movie by name
+app.get("/movies/:name", (req, res) => {
+  res.json(
+    movies.find((movie) => {
+      return movie.name === req.params.name;
+    })
+  );
 });
 
 app.get("/", (req, res) => {
