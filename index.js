@@ -116,6 +116,19 @@ app.get("/movies/genre/:name", (req, res) => {
     res.status(400).send("Movie not Found");
   }
 });
+
+//get director name
+app.get("/movies/director/:name", (req, res) => {
+  let movie = movies.find((movie) => {
+    return movie.name === req.params.name;
+  });
+  if (movie) {
+    res.status(200).send(`${req.params.name} is directed by ${movie.director}`);
+  } else {
+    res.status(400).send("Movie not Found");
+  }
+});
+
 // adds movies
 app.post("/movies", (req, res) => {
   let newMovie = req.body;
