@@ -114,6 +114,18 @@ app.post("/movies", (req, res) => {
     res.status(201).send(newMovie);
   }
 });
+// movie deleted
+app.delete("/movies/:id", (req, res) => {
+  let movie = movies.find((movie) => {
+    return movies.id === req.params.id;
+  });
+  if (movie) {
+    movies = movies.fildter((obj) => {
+      return obj.id !== req.params.id;
+    });
+    res.status(201).send("movie: " + req.params.id + " was deleted.");
+  }
+});
 
 app.get("/", (req, res) => {
   res.send("welcome to myFlix");
