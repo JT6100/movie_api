@@ -91,6 +91,9 @@ let movies = [
 //gets list of data about moives
 app.get("/movies", (req, res) => {
   res.json(movies);
+});
+
+app.get("/movies", (req, res) => {
   res.send("Successfull Get Request Returning data on all Movies");
 });
 
@@ -101,6 +104,17 @@ app.get("/movies/:name", (req, res) => {
       return movie.name === req.params.name;
     })
   );
+});
+//gets genre data
+app.get("/movies/genre/:name", (req, res) => {
+  let movie = movies.find((movie) => {
+    return movie.name === req.params.name;
+  });
+  if (movie) {
+    res.status(200).send(`${req.params.name} is a ${movie.genre}`);
+  } else {
+    res.status(400).send("Movie not Found");
+  }
 });
 // adds movies
 app.post("/movies", (req, res) => {
