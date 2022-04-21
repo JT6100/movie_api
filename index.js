@@ -91,6 +91,7 @@ let movies = [
 //gets list of data about moives
 app.get("/movies", (req, res) => {
   res.json(movies);
+  res.send("Successfull Get Request Returning data on all Movies");
 });
 
 //gets data about a single movie by name
