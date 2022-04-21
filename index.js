@@ -1,6 +1,7 @@
 const express = require("express");
 const res = require("express/lib/response");
 const app = express();
+(bodyParser = require("body-parser")), (uuid = require("uuid"));
 
 app.get("/movies", (req, res) => {
   res.json(topmovies);
@@ -19,6 +20,6 @@ app.use(express.static("public"));
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
-app.listen(3000, function () {
-  console.log("Server is running on localhost3000");
+app.listen(8080, function () {
+  console.log("Server is running on localhost8080");
 });
