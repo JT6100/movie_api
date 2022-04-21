@@ -101,13 +101,22 @@ app.get("/movies/:name", (req, res) => {
     })
   );
 });
+// adds movies
+app.post("/movies", (req, res) => {
+  let newMovie = req.body;
+
+  if (!newMovie.name) {
+    const message = "Missing Name in Request body";
+    res.status(400).send(message);
+  } else {
+    newMovie.id = uuid.v4();
+    movies.push(newMovie);
+    res.status(201).send(newMovie);
+  }
+});
 
 app.get("/", (req, res) => {
   res.send("welcome to myFlix");
-});
-
-app.get("/test", function (req, res) {
-  response.send("test this is a test");
 });
 
 app.use(express.static("public"));
