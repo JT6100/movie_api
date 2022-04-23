@@ -2,6 +2,7 @@
 
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
     <title>Documentation</title>
   </head>
   <body>
@@ -17,15 +18,66 @@
     <h2>endpoints and discrpitons</h2>
 
     <table>
-      <tr>
-        <th>method</th>
-        <th>endpoint</th>
-        <th>discriptions</th>
-      </tr>
+      <thead>
+        <tr>
+          <th>method</th>
+          <th>endpoint</th>
+          <th>discriptions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Get</td>
+          <td>/movie</td>
+          <td>
+            will provide a json containing details about all movies listed
+            <pre>
+                  {
+                    "id": 1,
+                    "name": "Batman",
+                    "genre": "Action/Adventure",
+                    "director": "Matt Reeves",
+                },
+                {
+                    "id": 2,
+                    "name": "CURS>R",
+                    "genre": "Horror/Drama",
+                    "director": "Toby Meakins",
+                 }
+        </pre
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>Get</td>
+          <td>movie/:name</td>
+          <td>
+            will provide a json containing details about a movie
+            <pre>
+                    {
+                       "id": 5,
+                       "name": "Umma",
+                       "genre": "Horror/Supernatural",
+                      "director": "Iris Shim",
+                   }
+          </pre
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>Get</td>
+          <td>movie/genre/:name</td>
+          <td>
+            will provide a json containing details about a movies genre
+            <pre>
+                    {
+                       "genre": "Horror/Supernatural",
+                    }
+          </pre
+            >
+          </td>
+        </tr>
+      </tbody>
     </table>
-
-    get/movies will provide a json of all movies get/movie/:name will provide a
-    json containing details about a movie. get/movie/genre/:name will provide
-    details about the genre of the movie title.
   </body>
 </html>
