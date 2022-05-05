@@ -1,9 +1,10 @@
+const express = require("express");
 const mongoose = require("mongoose");
 const Models = require("./models.js");
-
+const bodyParser = require("body-parser");
 const Movies = Models.Movie;
 const Users = Models.User;
-const express = require("express");
+
 const res = require("express/lib/response");
 const req = require("express/lib/request");
 const app = express();
@@ -205,6 +206,6 @@ app.use(express.static("public"));
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
-app.listen(8080, function () {
+app.listen(27017, function () {
   console.log("Server is running on localhost8080");
 });
