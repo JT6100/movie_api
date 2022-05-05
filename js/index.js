@@ -1,16 +1,21 @@
-const mongoose = require('mongoose');
-const Models = require('./models.js');
+const mongoose = require("mongoose");
+const Models = require("./models.js");
 
 const Movies = Models.Movie;
 const Users = Models.User;
 const express = require("express");
 const res = require("express/lib/response");
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
 (bodyParser = require("body-parser")), (uuid = require("uuid"));
 
 app.use(bodyParser.json());
 
-mongtoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopoLog y: true });
+mongtoose.connect("mongodb://localhost:27017/myFlixDB", {
+  useNewUrlParser: true,
+  useUnifiedTopoLog,
+  y: true,
+});
 
 let movies = [
   {
@@ -160,6 +165,11 @@ app.delete("/movies/:id", (req, res) => {
     });
     res.status(201).send("movie: " + req.params.id + " was deleted.");
   }
+});
+
+// create new user
+app.post('/users', req, res) => {
+  res.send('Successful POST request creating a new user');
 });
 
 app.get("/", (req, res) => {
