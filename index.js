@@ -86,13 +86,13 @@ app.delete("/movies/:id", (req, res) => {
 
 // create new user
 app.post("/users", (req, res) => {
-  Users.findOne({ UserName: req.body.UserName })
+  Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.UserName + "already exists");
+        return res.status(400).send(req.body.Username + "already exists");
       } else {
         Users.create({
-          UserName: req.body.UserName,
+          Username: req.body.Username,
           Password: req.body.Password,
           Email: req.body.email,
           Birthday: req.body.Birthday,
