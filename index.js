@@ -163,6 +163,25 @@ app.put("/users/:Username", (req, res) => {
   );
 });
 
+// Add a movie to a user's favorites
+app.post("/users/:Username/movies/:MovieID", (req, res) => {
+  Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    {
+      $push: { FavoriteMovies: req.params.MovieID },
+    },
+    { new: true },
+    (err, updatedUser) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      } else {
+        res.json(updatedUser);
+      }
+    }
+  );
+});
+
 app.get("/", (req, res) => {
   res.send("welcome to myFlix");
 });
