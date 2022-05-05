@@ -1,5 +1,4 @@
 node_modules
-*.js
 node_modules/.package-lock.json
 node_modules/lodash/flake.lock
 node_modules/lodash/flake.nix
