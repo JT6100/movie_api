@@ -5,7 +5,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
-let movies = [
+/*let movies = [
   {
     id: 1,
     name: "Batman",
@@ -154,7 +154,7 @@ app.delete("/movies/:id", (req, res) => {
     res.status(201).send("movie: " + req.params.id + " was deleted.");
   }
 });
-
+*/
 app.get("/", (req, res) => {
   res.send("welcome to myFlix");
 });
