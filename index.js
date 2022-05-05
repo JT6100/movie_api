@@ -7,8 +7,8 @@ const app = express();
 const mongoose = require("mongoose");
 const Models = require("./models.js");
 
-const movies = Models.Movie;
-const UserName = Models.User;
+const Movie = Models.Movie;
+const User = Models.User;
 const Genre = Models.Genre;
 const Directors = Models.Director;
 
