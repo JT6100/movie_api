@@ -1,7 +1,7 @@
-const mongoos = require("mongoose");
+const mongoose = require("mongoose");
 
-let movieSchema = mongoose.Schema({
-  Title: { type: String, required: true },
+let moviesSchema = mongoose.Schema({
+  Name: { type: String, required: true },
   Description: { type: String, required: true },
   Genre: {
     Name: String,
@@ -13,16 +13,16 @@ let movieSchema = mongoose.Schema({
   },
 });
 
-let userSchema = mongoose.Schema({
-  Username: { type: String, required: true },
+let usersSchema = mongoose.Schema({
+  UserName: { type: String, required: true },
   Password: { type: String, required: true },
   Email: { type: String, required: true },
   Birthday: Date,
-  FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }],
+  FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: "movies" }],
 });
 
-let Movie = mongoose.model("movies", movieSchema);
-let User = mongoose.model("users", userSchema);
+let movies = mongoose.model("movies", moviesSchema);
+let users = mongoose.model("users", usersSchema);
 
-module.exports.movies = Movie;
-module.exports.users = User;
+module.exports.movies = movies;
+module.exports.users = users;
