@@ -5,6 +5,7 @@ const Movies = Models.Movie;
 const Users = Models.User;
 const express = require("express");
 const res = require("express/lib/response");
+const req = require("express/lib/request");
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 (bodyParser = require("body-parser")), (uuid = require("uuid"));
@@ -168,8 +169,31 @@ app.delete("/movies/:id", (req, res) => {
 });
 
 // create new user
-app.post('/users', req, res) => {
-  res.send('Successful POST request creating a new user');
+app.post("/users", (req, res) => {
+  Users.findOne({ UserName: req.body.UserName })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.UserName + "already exists");
+      } else {
+        Users.create({
+          UserName: req.body.UserName,
+          Password: req.body.Password,
+          Email: req.body.email,
+          Birthday: req.body.Birthday,
+        })
+          .then((user) => {
+            res.status(201).json(user);
+          })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send("Error: " + error);
+          });
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error: " + error);
+    });
 });
 
 app.get("/", (req, res) => {
