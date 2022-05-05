@@ -1,29 +1,28 @@
-const express = require("express");
+const express = require("express"),
+  bodyParser = require("body-parser"),
+  uuid = require("uuid");
+
+const morgan = require("morgan");
+const app = express();
 const mongoose = require("mongoose");
 const Models = require("./models.js");
-const bodyParser = require("body-parser");
-const Movies = Models.Movie;
-const Users = Models.User;
 
-const res = require("express/lib/response");
-const req = require("express/lib/request");
-const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
-(bodyParser = require("body-parser")), (uuid = require("uuid"));
-app.use(bodyParser.json());
+const movies = Models.Movie;
+const UserName = Models.User;
+const Genre = Models.Genre;
+const Directors = Models.Director;
 
 mongoose.connect("mongodb://localhost:27017/myFlixDB", {
   useNewUrlParser: true,
-  useUnifiedTopoLog,
-  y: true,
+  useUnifiedTopology: true,
 });
 
 //gets list of data about moives
-app.get("/movies", (req, res) => {
-  res.json(movies);
+app.get("/movie", (req, res) => {
+  res.json(movie);
 });
 
-app.get("/movies", (req, res) => {
+app.get("/movie", (req, res) => {
   res.send("Successfull Get Request Returning data on all Movies");
 });
 
@@ -180,6 +179,22 @@ app.post("/users/:Username/movies/:MovieID", (req, res) => {
       }
     }
   );
+});
+
+// Delete a user by username
+app.delete("/users/:Username", (req, res) => {
+  Users.findOneAndRemove({ Username: req.params.Username })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send(req.params.Username + " was not found");
+      } else {
+        res.status(200).send(req.params.Username + " was deleted.");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
 app.get("/", (req, res) => {
