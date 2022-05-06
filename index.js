@@ -1,10 +1,77 @@
-const express = require("express");
-const res = require("express/lib/response");
+const express = require("express"),
+  BodyParser = require("body-parser"),
+  uuid = require("uuid");
+
+const morgan = require("morgan");
 const app = express();
-(bodyParser = require("body-parser")), (uuid = require("uuid"));
+const mongoose = require("mongoose");
+const Modles = require("/models.js");
 
-app.use(bodyParser.json());
+const Movies = Modles.Movies;
+const Users = Modles.Users;
 
+mongoose.connect("mongodb://localhost:27017/myFlixDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+app.use(BodyParser.json());
+
+app.use(morgan("common"));
+
+app.get("/", (req, res) => {
+  res.send("welcome to myFlix");
+});
+
+app.get("/movies", (req, res) => {
+  Movies.find()
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+app.post("/users", (req, res) => {
+  Users.findOne({ Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + "already exists");
+      } else {
+        Users.create({
+          Username: req.body.Username,
+          Password: req.body.Password,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday,
+        })
+          .then((user) => {
+            res.status(201).json(user);
+          })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send("Error: " + error);
+          });
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error: " + error);
+    });
+});
+
+// Get a user by username
+app.get("/users/:Username", (req, res) => {
+  Users.findOne({ Username: req.params.Username })
+    .then((users) => {
+      res.json(users);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
 /*let movies = [
   {
     id: 1,
@@ -155,9 +222,6 @@ app.delete("/movies/:id", (req, res) => {
   }
 });
 */
-app.get("/", (req, res) => {
-  res.send("welcome to myFlix");
-});
 
 app.use(express.static("public"));
 
