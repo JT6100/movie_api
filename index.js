@@ -49,6 +49,29 @@ app.get("/users", (req, res) => {
       res.status(500).send("Error: " + err);
     });
 });
+// for one movie by title
+app.get("/movies/:Title", (req, res) => {
+  Movies.findOne({ Title: req.params.Title })
+    .then((movie) => {
+      res.json(movie);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+// for specific gere
+app.get("/genre/:Name", (req, res) => {
+  GeolocationCoordinates.FindOne({ Name: req.params.Name })
+    .then((genre) => {
+      res.json(genre.Description);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
 /* app.get("/movies", (req, res) => {
   res.send("Successfull Get Request Returning data on all Movies");
 });
