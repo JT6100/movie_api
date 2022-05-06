@@ -72,6 +72,19 @@ app.get("/genre/:Name", (req, res) => {
       res.status(500).send("Error: " + err);
     });
 });
+
+// director info
+
+app.get("/director/:Name", (req, res) => {
+  Directors.FindOne({ Name: req.params.Name })
+    .then((director) => {
+      res.json(director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
 /* app.get("/movies", (req, res) => {
   res.send("Successfull Get Request Returning data on all Movies");
 });
