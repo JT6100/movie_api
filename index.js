@@ -9,13 +9,17 @@ const Models = require("./models.js");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const movies = Models.movies;
-const users = Models.users;
+const Movies = Models.Movie;
+const Users = Models.User;
 
 mongoose.connect("mongodb://localhost:27017/myFlixDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+app.use(bodyParser.json());
+
+app.use(morgan("common"));
 
 app.get("/", (req, res) => {
   res.send("welcome to myFlix");
@@ -23,8 +27,7 @@ app.get("/", (req, res) => {
 
 //gets list of data about moives
 app.get("/movies", (req, res) => {
-  movies
-    .find()
+  Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
     })
@@ -37,8 +40,7 @@ app.get("/movies", (req, res) => {
 // get all users
 
 app.get("/users", (req, res) => {
-  users
-    .find()
+  Users.find()
     .then((users) => {
       res.status(201).json(users);
     })
