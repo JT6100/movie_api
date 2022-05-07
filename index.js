@@ -3,14 +3,13 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const app = express();
-
 const Models = require("./models.js");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const Movie = Models.Movie;
-const Users = Models.users;
+const Movies = Models.movies;
+const User = Models.users;
 
 app.use(express.json());
 
@@ -35,12 +34,11 @@ app.get("/", (req, res) => {
 
 //gets list of data about moives
 app.get("/movies", (req, res) => {
-  Movie.find().then((Movie) => {
-    res.status(201).json(Movie);
+  Movies.find().then((Movies) => {
+    res.status(201).json(Models.Movies);
   });
 });
 
-/*
 // get all users
 
 app.get("/users", (req, res) => {
@@ -53,6 +51,7 @@ app.get("/users", (req, res) => {
       res.status(500).send("Error: " + err);
     });
 });
+/*
 // for one movie by title
 app.get("/movies/:Title", (req, res) => {
   Movies.findOne({ Title: req.params.Title })
@@ -89,10 +88,11 @@ app.get("/director/:Name", (req, res) => {
       res.status(500).send("Error: " + err);
     });
 });
-
+*/
 // create new user
+
 app.post("/users", (req, res) => {
-  Users.findOne({ Username: req.body.Username })
+  User.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
         return res.status(400).send(req.body.Username + "already exists");
@@ -100,7 +100,7 @@ app.post("/users", (req, res) => {
         Users.create({
           Username: req.body.Username,
           Password: req.body.Password,
-          Email: req.body.email,
+          Email: req.body.Email,
           Birthday: req.body.Birthday,
         })
           .then((user) => {
@@ -119,7 +119,7 @@ app.post("/users", (req, res) => {
 });
 
 // udate users info by username
-
+/*
 app.put("/users/:Username", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
