@@ -1,22 +1,28 @@
-const express = require("express"),
-  bodyParser = require("body-parser"),
-  uuid = require("uuid");
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const app = express();
-const mongoose = require("mongoose");
+
 const Models = require("./models.js");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const Movies = Models.Movie;
-const Users = Models.User;
+const Movie = Models.Movie;
+const Users = Models.users;
 
 app.use(express.json());
 
 mongoose.connect("mongodb://localhost:27017/myFlixDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+});
+
+const con = mongoose.connection;
+
+con.on("open", function () {
+  console.log("connected...");
 });
 
 app.use(bodyParser.json());
@@ -28,17 +34,13 @@ app.get("/", (req, res) => {
 });
 
 //gets list of data about moives
-app.get("/movie", (req, res) => {
-  Movies.find()
-    .then((movies) => {
-      res.status(201).json(movies);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
+app.get("/movies", (req, res) => {
+  Movie.find().then((Movie) => {
+    res.status(201).json(Movie);
+  });
 });
 
+/*
 // get all users
 
 app.get("/users", (req, res) => {
@@ -195,6 +197,8 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Error");
 });
+
+*/
 
 app.listen(8080, function () {
   console.log("Server is running on localhost8080");
