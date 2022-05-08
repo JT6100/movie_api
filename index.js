@@ -5,28 +5,15 @@ const express = require("express"),
 const morgan = require("morgan");
 const app = express();
 const mongoose = require("mongoose");
-
-const morgan = require("morgan");
+const Models = require("./models");
 
 const Movies = Models.Movie;
 const Users = Models.User;
-
-app.use(express.json());
 
 mongoose.connect("mongodb://localhost:8080/myFlixDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
-const con = mongoose.connection;
-
-con.on("open", function () {
-  console.log("connected...");
-});
-
-app.use(bodyParser.json());
-
-app.use(morgan("common"));
 
 app.get("/", (req, res) => {
   res.send("welcome to myFlix");
@@ -34,9 +21,9 @@ app.get("/", (req, res) => {
 
 //gets list of data about moives
 app.get("/movies", (req, res) => {
-  Movie.find()
-    .then((movie) => {
-      res.status(201).json(movie);
+  Movies.find()
+    .then((movies) => {
+      res.status(201).json(movies);
     })
     .catch((err) => {
       console.error(err);
