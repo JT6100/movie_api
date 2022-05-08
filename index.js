@@ -31,10 +31,21 @@ app.get("/movies", (req, res) => {
     });
 });
 
+//gets list of data about moives
+app.get("/movies", (req, res) => {
+  let movie = Movies.find((movie) => {
+    return movie.title === req.params.title;
+  });
+  if (movie) {
+    res.json(movie);
+  } else {
+    res.status(400).send("Movie not Found");
+  }
+});
 // get all users
 
 app.get("/users", (req, res) => {
-  User.find()
+  Users.find()
     .then((users) => {
       res.status(201).json(users);
     })
@@ -46,9 +57,9 @@ app.get("/users", (req, res) => {
 
 // for one movie by title
 app.get("/movies/:Title", (req, res) => {
-  Movie.find({ Title: req.params.Title })
-    .then((movie) => {
-      res.json(movie);
+  Movies.find({ Title: req.params.Title })
+    .then((movies) => {
+      res.json(movies);
     })
     .catch((err) => {
       console.error(err);
