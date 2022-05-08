@@ -42,9 +42,9 @@ app.get("/movies", (req, res) => {
 // get all users
 
 app.get("/users", (req, res) => {
-  Users.find()
-    .then((users) => {
-      res.status(201).json(users);
+  User.find()
+    .then((User) => {
+      res.status(201).json(User);
     })
     .catch((err) => {
       console.error(err);
@@ -92,13 +92,13 @@ app.get("/director/:Name", (req, res) => {
 // create new user
 
 app.post("/users", (req, res) => {
-  User.findOne({ Username: req.body.Username })
+  User.findOne({ UserName: req.body.Username })
     .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.Username + "already exists");
+        return res.status(400).send(req.body.UserName + "already exists");
       } else {
         Users.create({
-          Username: req.body.Username,
+          Username: req.body.UserName,
           Password: req.body.Password,
           Email: req.body.Email,
           Birthday: req.body.Birthday,
