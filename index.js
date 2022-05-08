@@ -10,7 +10,7 @@ const Models = require("./models");
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect("mongodb://localhost:8080/myFlixDB", {
+mongoose.connect("mongodb://localhost:27017/myFlixDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -22,8 +22,8 @@ app.get("/", (req, res) => {
 //gets list of data about moives
 app.get("/movies", (req, res) => {
   Movies.find()
-    .then((movies) => {
-      res.status(201).json(movies);
+    .then((Movie) => {
+      res.status(201).json(Movie);
     })
     .catch((err) => {
       console.error(err);
