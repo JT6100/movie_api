@@ -22,14 +22,14 @@ app.get("/", (req, res) => {
 
 //gets list of data about moives
 app.get("/movies", (req, res) => {
-  let movie = Movies.find((movie) => {
-    return movie.title === req.params.title;
+  Movies.find()
+  .then((movies) => {
+    res.status(201).json(movies);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send("Error: " + err);
   });
-  if (movie) {
-    res.json(movie);
-  } else {
-    res.status(400).send("Movie not Found");
-  }
 });
 // get all users
 
@@ -42,6 +42,18 @@ app.get("/users", (req, res) => {
       console.error(err);
       res.status(500).send("Error: " + err);
     });
+});
+
+// get user by username
+app.get('/users/:Usersname', (req, res) => {
+  Users.findOne({ Username: Request.params.Username })
+  .then((user) => {
+    res.json(user);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
 // for one movie by title
@@ -58,7 +70,7 @@ app.get("/movies/:Title", (req, res) => {
 
 // for specific gere
 app.get("/genre/:Name", (req, res) => {
-  GeolocationCoordinates.FindOne({ Name: req.params.Name })
+  Genres.findOne({ Name: req.params.Name })
     .then((genre) => {
       res.json(genre.Description);
     })
@@ -71,7 +83,7 @@ app.get("/genre/:Name", (req, res) => {
 // director info
 
 app.get("/director/:Name", (req, res) => {
-  Directors.FindOne({ Name: req.params.Name })
+  Directors.findOne({ Name: req.params.Name })
     .then((director) => {
       res.json(director);
     })
@@ -135,6 +147,7 @@ app.put("/users/:Username", (req, res) => {
 });
 
 // Delete a user by username
+
 app.delete("/users/:Username", (req, res) => {
   Users.findOneAndRemove({ UserName: req.params.Username })
     .then((user) => {
