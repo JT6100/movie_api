@@ -19,17 +19,6 @@ app.get("/", (req, res) => {
   res.send("welcome to myFlix");
 });
 
-//gets list of data about moives
-app.get("/movies", (req, res) => {
-  Movies.find()
-    .then((Movie) => {
-      res.status(201).json(Movie);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + error);
-    });
-});
 
 //gets list of data about moives
 app.get("/movies", (req, res) => {
@@ -121,7 +110,7 @@ app.post("/users", (req, res) => {
 });
 
 // udate users info by username
-/*
+
 app.put("/users/:Username", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
@@ -200,7 +189,7 @@ app.use((err, req, res, next) => {
   res.status(500).send("Error");
 });
 
-*/
+
 
 app.listen(8080, function () {
   console.log("Server is running on localhost8080");
