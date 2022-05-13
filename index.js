@@ -46,9 +46,9 @@ app.get("/users", (req, res) => {
 
 // get user by username
 app.get('/users/:Usersname', (req, res) => {
-  Users.findOne({ Username: Request.params.Username })
-  .then((user) => {
-    res.json(user);
+  Users.findOne({ Username: req.params.Username })
+  .then((users) => {
+    res.json(users);
   })
   .catch((err) => {
     console.error(err);
