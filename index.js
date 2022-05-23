@@ -18,6 +18,8 @@ mongoose.connect("mongodb://localhost:27017/myFlixDB", {
 
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
+let auth = require('./auth')(app);
 
 app.get("/", (req, res) => {
   res.send("welcome to myFlix");
