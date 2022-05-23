@@ -16,8 +16,7 @@ mongoose.connect("mongodb://localhost:27017/myFlixDB", {
   useUnifiedTopology: true,
 });
 
-app.use(express.json());
-app.use(express.urlencoded());
+
 app.use(bodyParser.urlencoded({ extended: true }));
 let auth = require('./auth')(app);
 const passport = require('passport');
@@ -29,7 +28,8 @@ app.get("/", (req, res) => {
 
 
 //gets list of data about moives
-app.get("/movies", (req, res) => {
+app.get("/movies", passport.authenticate('jwt', { session: false}),
+(req, res) => {
   Movies.find()
   .then((movies) => {
     res.status(201).json(movies);
