@@ -103,8 +103,7 @@ app.get('/directors/:name', passport.authenticate('jwt', { session: false}),
   });
 });
 // create new user
-app.post('/users', passport.authenticate('jwt', { session: false}),
-(req, res) => {
+app.post,(req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
