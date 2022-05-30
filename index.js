@@ -45,7 +45,7 @@ app.get("/movies", passport.authenticate('jwt', { session: false}),
 });
 // get all users
 
-app.get("/users", passport.authenticate('jwt', { session: false}),
+app.get("/users",
 (req, res) => {
   Users.find()
     .then((users) => {
