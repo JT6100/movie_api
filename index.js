@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const uuid = require("uuid");
 
+
 const morgan = require("morgan");
 const app = express();
 const mongoose = require("mongoose");
@@ -18,6 +19,8 @@ mongoose.connect("mongodb://localhost:27017/myFlixDB", {
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
+const cors = require('cors');
+app.use(cors());
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
