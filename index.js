@@ -8,6 +8,7 @@ const app = express();
 const mongoose = require("mongoose");
 const Models = require("./models");
 const res = require("express/lib/response");
+const { check, validationResult } = require('express-validator');
 
 const Movies = Models.Movie;
 const Users = Models.User;
