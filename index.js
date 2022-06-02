@@ -108,7 +108,7 @@ app.get('/directors/:name', passport.authenticate('jwt', { session: false}),
   });
 });
 // create new user
-/*app.post('/users',),
+/*app.post('/users'),
 [
   check('Username', 'Username is required').isLength({min: 5}),
   check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
@@ -150,7 +150,6 @@ app.get('/directors/:name', passport.authenticate('jwt', { session: false}),
   };
 */
 app.post('/users', (req, res) => {
-  let hashPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -174,6 +173,7 @@ app.post('/users', (req, res) => {
       console.error(error);
       res.status(500).send('Error: ' + error);
     });
+});
 
 
 // udate users info by username
