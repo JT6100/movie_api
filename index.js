@@ -103,8 +103,7 @@ app.get('/directors/:name', passport.authenticate('jwt', { session: false}),
   });
 });
 // create new user
-app.post('/users', passport.authenticate('jwt', { session: false}),
-(req, res) => {
+app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -142,7 +141,7 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false}),
       Username: req.body.Username,
       Password: req.body.Password,
       Email: req.body.Email,
-      Birthday: req.body.Birthday
+      Birthday: req.body.Birthday,
     }
   },
   { new: true }, // This line makes sure that the updated document is returned
