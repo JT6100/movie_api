@@ -13,7 +13,8 @@ const { check, validationResult } = require('express-validator');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect(process.env.CONNECTION_URI, {
+mongoose.connect("mongodb://localhost:27017/myFlixDB", {
+/*mongoose.connect(process.env.CONNECTION_URI, {*/
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -107,14 +108,12 @@ app.get('/directors/:name', passport.authenticate('jwt', { session: false}),
   });
 });
 // create new user
-app.post('/users',
-[
+app.post('/users',[
   check('Username', 'Username is required').isLength({min: 5}),
   check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
   check('Password', 'Password is required').not().isEmpty(),
   check('Email', 'Email does not appear to be valid').isEmail()
-],
-(req, res) => {
+  ], (req, res) => {
 
   // check the validation object for errors
     let errors = validationResult(req);
@@ -233,13 +232,15 @@ app.use((err, req, res, next) => {
   res.status(500).send("Error");
 });
 
+app.listen(8080, function () {
+  console.log("Server is running on localhost8080");
+});
 
 
-
-
+/*
     const port = process.env.PORT || 8080;
     app.listen(port, '0.0.0.0',() => {
      console.log('Listening on Port ' + port);
     });
-
+*/
 
