@@ -13,8 +13,7 @@ const { check, validationResult } = require('express-validator');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect("mongodb://localhost:27017/myFlixDB", {
-/*mongoose.connect(process.env.CONNECTION_URI, {*/
+mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -260,15 +259,13 @@ app.use((err, req, res, next) => {
   res.status(500).send("Error");
 });
 
-app.listen(8080, function () {
+/*app.listen(8080, function () {
   console.log("Server is running on localhost8080");
 });
+*/
 
 
-/*
     const port = process.env.PORT || 8080;
     app.listen(port, '0.0.0.0',() => {
      console.log('Listening on Port ' + port);
     });
-*/
-
