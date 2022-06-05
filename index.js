@@ -20,6 +20,7 @@ mongoose.connect(process.env.CONNECTION_URI, {
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 let auth = require('./auth')(app);
