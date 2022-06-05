@@ -108,20 +108,7 @@ app.get('/directors/:name', passport.authenticate('jwt', { session: false}),
   });
 });
 // create new user
-app.post('/users', [
-  check('Username', 'Username is required').isLength({min: 5}),
-  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
-  check('Password', 'password is required').not().isEmpty(),
-  check('Email', 'Email does not appear to be valid').isEmail()],
-  (req, res) => {
-
-    let errors = validationResult(req);
-
-    if (!error.isEmpty()) {
-      return res.status(422).json({ errors:errors.array() });
-    }
-    
-  let hashPassword = Users.hashPassword(req.body.Password);
+app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
