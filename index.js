@@ -148,7 +148,7 @@ app.get('/directors/:name', passport.authenticate('jwt', { session: false}),
       });
   };
 */
-app.post(req, res) => {
+app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
