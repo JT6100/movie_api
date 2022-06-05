@@ -108,39 +108,30 @@ app.get('/directors/:name', passport.authenticate('jwt', { session: false}),
 });
 // create new user
 app.post('/users', (req, res) => {
-  // check the validation object for errors
-    let errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-    let hashedPassword = Users.hashPassword(req.body.Password);
-    // See if user with requested username already exists
-    Users
-    .findOne({ Username: req.body.Username }) 
+  Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
-        //If the user is found, send a response that it already exists
-        return res.status(400).send(req.body.Username + ' already exists');
+        return res.status(400).send(req.body.Username + 'already exists');
       } else {
         Users
           .create({
             Username: req.body.Username,
-            Password: hashedPassword,
+            Password: req.body.Password,
             Email: req.body.Email,
             Birthday: req.body.Birthday
           })
-          .then((user) => { res.status(201).json(user) })
-          .catch((error) => {
-            console.error(error);
-            res.status(500).send('Error: ' + error);
-          });
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).send('Error: ' + error);
-      });
-  });
+          .then((user) =>{res.status(201).json(user) })
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send('Error: ' + error);
+        })
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
+});
 
 // udate users info by username
 
