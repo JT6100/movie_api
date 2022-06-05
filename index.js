@@ -18,7 +18,7 @@ mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true,
 });
 
-/*hello*/
+
 app.use(bodyParser.urlencoded({ extended: true }));
 const cors = require('cors');
 app.use(cors());
@@ -148,7 +148,7 @@ app.get('/directors/:name', passport.authenticate('jwt', { session: false}),
       });
   };
 */
-app.post('/users', (req, res) => {
+app.post(req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
